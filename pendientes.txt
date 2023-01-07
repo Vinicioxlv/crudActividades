@@ -1,0 +1,4 @@
+
+cambiar color icono de github
+reducir el tamaño del footer
+cambiar el color del footer
