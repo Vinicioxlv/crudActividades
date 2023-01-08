@@ -20,6 +20,14 @@ const CrearItem = (actividad) => {
 
 }
 
+function validarFormulario (e){
+  e.preventDefault();
+  if(listaActividadesUI.value === ''){
+    alert('Todos los campos se deben llenar');
+    return;
+  }
+}
+
 const GuardarDB = () => {
 
   localStorage.setItem('rutina', JSON.stringify(arrayActividades));
@@ -41,9 +49,9 @@ const PintarDB = () => {
     arrayActividades.forEach(element => {
 
       if(element.estado){
-        listaActividadesUI.innerHTML += `<div class="alert alert-success" role="alert"><i class="material-icons float-left mr-2">accessibility</i><b>${element.actividad}</b> - ${element.estado}<span class="float-right"><i class="material-icons">done</i><i class="material-icons">delete</i></span></div>`
+        listaActividadesUI.innerHTML += `<div class="alert alert-success" role="alert"><i class="material-icons float-left mr-2">accessibility</i><b>${element.actividad}</b> - ${element.estado}<span class="float-right"><i class="material-icons">done</i><i class="material-icons">edit</i><i class="material-icons">delete</i></span></div>`
       }else{
-        listaActividadesUI.innerHTML += `<div class="alert alert-danger" role="alert"><i class="material-icons float-left mr-2">accessibility</i><b>${element.actividad}</b> - ${element.estado}<span class="float-right"><i class="material-icons">done</i><i class="material-icons">delete</i></span></div>`
+        listaActividadesUI.innerHTML += `<div class="alert alert-danger" role="alert"><i class="material-icons float-left mr-2">accessibility</i><b>${element.actividad}</b> - ${element.estado}<span class="float-right"><i class="material-icons">done</i><i class="material-icons">edit</i><i class="material-icons">delete</i></span></div>`
       }
     });
 
@@ -76,14 +84,17 @@ const EditarDB = (actividad) => {
 }
 
 
-
-
 // EventListener
 
 formularioUI.addEventListener('submit', (e) => {
 
   e.preventDefault();
   let actividadUI = document.querySelector('#actividad').value;
+
+  if(actividadUI.value === ''){
+    alert('Todos los campos se deben llenar');
+    return;
+  }
 
   CrearItem(actividadUI);
   GuardarDB();
