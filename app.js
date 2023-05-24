@@ -66,38 +66,22 @@ const cambiarEstado = (elemento) => {
 };
 
 // Función para editar una actividad
-// Función para editar una actividad
 const editarActividad = (elemento) => {
   const actividadElemento = elemento.parentElement.parentElement;
   const actividadTexto = actividadElemento.querySelector('b').textContent;
-
-  // Cargar los datos de la actividad en el formulario
-  const actividadInput = document.getElementById('actividad');
-  actividadInput.value = actividadTexto;
-
-  // Actualizar la actividad al presionar el botón "Guardar"
-  formulario.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const nuevaActividad = actividadInput.value;
-
-    if (nuevaActividad && nuevaActividad.trim() !== '') {
-      // Actualizar el texto de la actividad en el elemento del DOM
-      actividadElemento.querySelector('b').textContent = nuevaActividad;
-
-      // Actualizar la actividad en el almacenamiento local
-      const actividades = obtenerActividades();
-      const index = actividades.indexOf(actividadTexto);
-      actividades[index] = nuevaActividad;
-      localStorage.setItem('actividades', JSON.stringify(actividades));
-
-      // Limpiar el formulario y eliminar el evento de submit
-      actividadInput.value = '';
-      formulario.removeEventListener('submit', onSubmit);
-    }
-  });
+  
+  const nuevaActividad = prompt('Editar actividad', actividadTexto);
+  
+  if (nuevaActividad && nuevaActividad.trim() !== '') {
+    actividadElemento.querySelector('b').textContent = nuevaActividad;
+    
+    // Guardar el arreglo actualizado en el almacenamiento local
+    const actividades = obtenerActividades();
+    const index = actividades.indexOf(actividadTexto);
+    actividades[index] = nuevaActividad;
+    localStorage.setItem('actividades', JSON.stringify(actividades));
+  }
 };
-
 
 // Función para eliminar una actividad
 const eliminarActividad = (elemento) => {
